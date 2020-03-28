@@ -6,9 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/fullcalendar.css" />
+<!--  <link rel="stylesheet" href="css/fullcalendar.css" /> -->
 <link rel="stylesheet" href="css/maruti-style.css?after" />
 <link rel="stylesheet" href="css/maruti-media.css" class="skin-color" />
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 	<!--Header-part-->
@@ -102,7 +103,8 @@
 						class="icon-home"></i> Home</a>
 				</div>
 			</div>
-
+			<nav>
+			</nav>
 			<article>
 			
 				<div class="container-fluid">
@@ -121,49 +123,56 @@
 										</div>
 									</div>
 									<div class="collapse in accordion-body" id="collapseGOne">
-										<div class="widget-content">It has multiple paragraphs and
-											is full of waffle to pad out the comment. Usually, you just
-											wish these sorts of comments would come to an end.</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="accordion" id="collapse-group">
-								<div class="accordion-group widget-box">
-									<div class="accordion-heading">
-										<div class="widget-title">
-											<a data-parent="#collapse-group" href="#collapseGTwo"
-												data-toggle="collapse"> <span class="icon"><i
-													class="icon-magnet"></i></span>
-												<h5>라인2</h5>
-											</a>
+										<div class="widget-content">
+											<div class = "row1">
+
+												<div class = "lineAll">
+													<label> 입력 데이터 타입 (Input Type)</label>
+													<select data-type= "param" data-param-name = "inputType">
+														<option value = "0">숫자(number)</option>
+														<option value = "1">배열(array)</option>
+														<option value = "2">문자열(String)</option>
+														<option value = "3">트리(Tree)</option>
+														<option value = "4">그래프(Graph)</option>
+													</select>
+												</div>											
+												
+												<div class = "lineLeft">
+													<label> 숫자 개수 (N)</label>
+													<input type = "text" placeholder = "숫자 개수(N)" style = "width : 75%">
+												</div>
+												
+												<div class = "lineRight">
+													<label> 최소 입력값 (Min Value)</label>
+													<input type = "text" placeholder = "최소값" style = "width : 75%">
+												
+												</div>
+												
+												<div class = "lineLeft">
+													<label> 최대 입력값 (Max Value)</label>
+													<input type = "text" placeholder = "n_test_cases" style = "width : 75%">
+												</div>
+												
+												<div class = "lineRight">
+													<label> 전체 숫자 출력 여부 (print N) </label>
+													<select data-type= "param" data-param-name = "includeNTestCasesFlag" style = "width : 75%">
+														<option value = "0">False</option>
+														<option value = "1">True</option>
+													</select>
+												
+												</div>
+											</div>
+											
+										
+										
 										</div>
 									</div>
-									<div class="collapse in accordion-body" id="collapseGThree">
-										<div class="widget-content">It has multiple paragraphs and
-											is full of waffle to pad out the comment. Usually, you just
-											wish these sorts of comments would come to an end.</div>
-									</div>
+									
 								</div>
-							</div>
-							
-							<div class="accordion" id="collapse-group">
-								<div class="accordion-group widget-box">
-									<div class="accordion-heading">
-										<div class="widget-title">
-											<a data-parent="#collapse-group" href="#collapseGOne"
-												data-toggle="collapse"> <span class="icon"><i
-													class="icon-magnet"></i></span>
-												<h5>라인 3</h5>
-											</a>
-										</div>
+									<br>
+									<div class = "addLine">
+										<button id = "addLineBtn"> 라인추가 </button>
 									</div>
-									<div class="collapse in accordion-body" id="collapseGOne">
-										<div class="widget-content">It has multiple paragraphs and
-											is full of waffle to pad out the comment. Usually, you just
-											wish these sorts of comments would come to an end.</div>
-									</div>
-								</div>
 							</div>
 						</div>
 						<div class="span6">

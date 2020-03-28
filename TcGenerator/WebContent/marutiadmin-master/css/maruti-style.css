@@ -5,35 +5,6 @@
 }
 /* Main */
 
-body {
-	overflow-x: hidden;
-    margin-top: -10px;
-}
-
-header {
-	width : 100%;
-	position : relative;	
-}
-
-nav {
-	width : 15%;
-	height : 1500px;
-	position : relative;
-}
-
-aside {
-	width : 15%;
-	height : 1500px;	
-	position : relative;
-}
-
-article {
-	width : 70%;
-	height : 1500px;
-	position : relative;
-}
-
-
 a:hover {
 	text-decoration: none;
 }
