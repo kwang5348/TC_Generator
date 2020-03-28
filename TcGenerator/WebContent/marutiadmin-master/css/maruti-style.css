@@ -4,10 +4,36 @@
 	-moz-outline: none !important;
 }
 /* Main */
+
 body {
 	overflow-x: hidden;
     margin-top: -10px;
 }
+
+header {
+	width : 100%;
+	position : relative;	
+}
+
+nav {
+	width : 15%;
+	height : 1500px;
+	position : relative;
+}
+
+aside {
+	width : 15%;
+	height : 1500px;	
+	position : relative;
+}
+
+article {
+	width : 70%;
+	height : 1500px;
+	position : relative;
+}
+
+
 a:hover {
 	text-decoration: none;
 }
@@ -27,7 +53,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 #header h1 {
-    background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+    background: url("../img/Title.png") no-repeat scroll 0 0 transparent;
     height: 31px;
     left: 15px;
     line-height: 600px;
