@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+header{
+	width : 100%;
+	height : 62px;
+	background-color : black;
+}
+
+nav {
+	width : 15%;
+	height : 1200px;
+	background-color : yellow;
+	position : relative;
+}
+
+section {
+	width : 70%;
+	height : 1200px;
+	background-color : red;
+	position : relative;
+}
+
+aside {
+	width : 15%;
+	height : 1200px;
+	background-color : blue;
+	position : relative;
+}
+
+footer {
+	width : 100%;
+	height : 40px;
+	background-color : grey;
+}
