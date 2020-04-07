@@ -269,9 +269,8 @@ a:hover {
     overflow:hidden !important;
 }
 .accordion .widget-box {
-	margin-top: -2px;
-	margin-bottom: 0;
-	border-radius: 0;
+	margin-bottom: 10px;
+	border-radius: 1%;
 }
 .widget-box.widget-plain {
 	background: transparent;
@@ -347,7 +346,7 @@ a:hover {
 
 .widget-content {
 	padding: 12px 15px;
-    border-bottom: 1px solid #cdcdcd;
+    
 }
 .widget-box.widget-plain .widget-content {
 	padding: 12px 0 0;
@@ -753,8 +752,8 @@ form {
 		padding: 0 !important;
 	}
 	.container-fluid {
-		padding-left: 20px;
-		padding-right: 20px;
+		padding-left: 200px;
+		padding-right: 200px;
 	}
 	#search { display: none; }
 	#user-nav > ul > li > a > span.text {

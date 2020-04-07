@@ -456,6 +456,8 @@ a:focus {
 }
 
 .row-fluid .span6 {
+	padding-left : 50px;
+	padding-right : 50px;
     width: 48.93617021276595%;
     *width: 48.88297872340425%
 }
