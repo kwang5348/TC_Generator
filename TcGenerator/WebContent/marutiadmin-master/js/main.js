@@ -305,3 +305,44 @@ $(document).on("change",".selectWeightBox", function(){
 	               $(this).parent().nextAll().remove();
 	            }
 });
+
+$(".btn").click(function(){
+	  var cr = $("#collapse-group").children().eq(1).children().eq(1).children().children().children();
+	  var inputDataType = cr.children(0);
+	  $('.selectInputBox').each(function(){
+		  var len = $(this).parent().parent().children().length;
+		  makeNumberString($(this).parent(), len);
+	  });
+
+});
+
+function makeNumberString(thisObj, len){
+	var element = thisObj.parent().children();
+	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
+	element.each(function(){
+		if($(this).find("select").length != 0){
+			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은 제외하고
+				dataAttr.push($(this).find("select option:selected").val());
+			}
+		}else if($(this).find("input").length != 0){
+			dataAttr.push($(this).find("input").val());
+		}
+	});
+	
+	console.log(dataAttr);
+	if(dataAttr[2] == 'int'){ // 숫자/문자타입이 int라면
+		var OutputTag = $("textarea[name='member_name']");
+		for (var i = 0; i < dataAttr[0]; i++) {
+			var n = Math.floor(Math.random() * parseInt(dataAttr[4])) + parseInt(dataAttr[3]);
+			OutputTag.val(OutputTag.val() + n + " ");
+		}
+		OutputTag.val(OutputTag.val() + "\n"); // 띄어쓰기
+	}else if(dataAttr[2] == 'double'){
+		var OutputTag = $("textarea[name='member_name']");
+		for (var i = 0; i < dataAttr[0]; i++) {
+			var n = Number(Math.random() * dataAttr[4] + dataAttr[3]);
+			OutputTag.val(OutputTag.val() + n.toFixed(2) + " ");
+		}
+		OutputTag.val(OutputTag.val() + "\n"); // 띄어쓰기
+	}
+}
