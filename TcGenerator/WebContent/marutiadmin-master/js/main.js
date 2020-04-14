@@ -319,9 +319,11 @@ $(".btn").click(function(){
 function makeNumberString(thisObj, len){
 	var element = thisObj.parent().children();
 	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
+	console.log(element);
 	element.each(function(){
 		if($(this).find("select").length != 0){
-			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은 제외하고
+			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은
+																// 제외하고
 				dataAttr.push($(this).find("select option:selected").val());
 			}
 		}else if($(this).find("input").length != 0){
@@ -344,5 +346,22 @@ function makeNumberString(thisObj, len){
 			OutputTag.val(OutputTag.val() + n.toFixed(2) + " ");
 		}
 		OutputTag.val(OutputTag.val() + "\n"); // 띄어쓰기
+	} else if(dataAttr[2] == 'char'){
+		var OutputTag = $("textarea[name='member_name']");
+		for (var i = 0; i < dataAttr[0]; i++) {
+			var n = dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
+			OutputTag.val(OutputTag.val() + n + " ");
+		}
+		OutputTag.val(OutputTag.val() + "\n")
+	} else if(dataAttr[2] == 'string'){
+		var OutputTag = $("textarea[name='member_name']");
+		for (var i = 0; i < dataAttr[0]; i++) {
+			var n = "";
+			for (var j = 0; j < dataAttr[4]; j++) {
+				n += dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
+			}
+			OutputTag.val(OutputTag.val() + n + " ");
+		}
+		OutputTag.val(OutputTag.val() + "\n")
 	}
 }
