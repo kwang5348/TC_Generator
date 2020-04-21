@@ -34,7 +34,6 @@ Line.prototype.create = function(){
                	<button class="removeLineBtn"><i class="far fa-trash-alt"></i></button>
             </span>
             
-
          </div>
       </div>
       <div class="collapse in accordion-body" id="collapse`
@@ -52,14 +51,14 @@ Line.prototype.create = function(){
                   </select>
                </div>
          <div class="lineLeft">
-            <label> 숫자/문자 개수 </label> 
-            <input type="text" placeholder="숫자 개수" style="width: 75%">
+            <label> 반복 횟수 </label> 
+            <input type="text" placeholder="반복 횟수" style="width: 75%">
          </div>
          <div class="lineRight">
-         <label> 전체 개수 출력 여부  </label> 
-         <select data-type="param" data-param-name="includeNTestCasesFlag" style="width: 75%">
-         <option value="0">False</option>
-         <option value="1">True</option>
+	         <label> 반복 횟수 출력 여부  </label> 
+	         <select data-type="param" data-param-name="includeNTestCasesFlag" style="width: 75%">
+	         <option value="no">False</option>
+	         <option value="yes">True</option>
          </select>
          </div>
             <div class="lineAll">
@@ -71,15 +70,12 @@ Line.prototype.create = function(){
                      <option value="string">String</option>
                 </select>
             </div>
-
             <div class="lineLeft">
                <label> 숫자/문자 최소값 </label> <input type="text" placeholder="최소값" style="width: 75%">
             </div>
-
             <div class="lineRight">
                <label> 숫자/문자 최대값 </label> <input type="text" placeholder="최대값" style="width: 75%">
             </div>
-
          </div>
       </div>
       </div>
@@ -110,14 +106,14 @@ $(document).on("change",".selectInputBox", function(){
 	         switch(selectValue){
 	            case "0" : // 숫자/문자
 	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(1).append($('<label> 숫자/문자 개수 </label>'));
-	               pr.children().eq(1).append($('<input type="text" placeholder="개수" style="width: 75%">'));
+		           pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
+		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
 	                       
 	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(2).append($('<label> 전체 개수 출력 여부 </label>'));
+	               pr.children().eq(2).append($('<label> 반복 횟수 출력 여부 </label>'));
 	               pr.children().eq(2).append($('<select data-type="param" style="width: 75%">'));
-	               pr.children().eq(2).children().eq(1).append($('<option value="false">False</option>'));
-	               pr.children().eq(2).children().eq(1).append($('<option value="true">True</option>'));
+	               pr.children().eq(2).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(2).children().eq(1).append($('<option value="yes">True</option>'));
 	               
 	               pr.append($('<div class="lineAll"></div>'));
 	               pr.children().eq(3).append($('<label> 숫자/문자 타입  </label>'));
@@ -137,15 +133,15 @@ $(document).on("change",".selectInputBox", function(){
 	               
 	               break;
 	            case "1" : // Array
-	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(1).append($('<label> 차원 수 </label>'));
-	               pr.children().eq(1).append($('<input type="text" placeholder="차원 수" style="width: 75%">'));
-
+		           pr.append($('<div class="lineLeft"></div>'));
+			       pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
+			       pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
+			       
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(2).append($('<label> 중복 값 여부 </label>'));
 	               pr.children().eq(2).append($('<select data-type="param" style="width: 75%">'));
-	               pr.children().eq(2).children().eq(1).append($('<option value="false">False</option>'));
-	               pr.children().eq(2).children().eq(1).append($('<option value="true">True</option>'));
+	               pr.children().eq(2).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(2).children().eq(1).append($('<option value="yes">True</option>'));
 
 	               pr.append($('<div class="lineLeft"></div>'));
 	               pr.children().eq(3).append($('<label> 행 최소값 </label>'));
@@ -160,57 +156,47 @@ $(document).on("change",".selectInputBox", function(){
 	               pr.children().eq(5).append($('<input type="text" placeholder="최소 값" style="width: 75%">'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(6).append($('<label> 행 최대값 </label>'));
+	               pr.children().eq(6).append($('<label> 열 최대값 </label>'));
 	               pr.children().eq(6).append($('<input type="text" placeholder="최대 값" style="width: 75%">'));
 	               
-	               pr.append($('<div class="lineAll"></div>'));
-	               pr.children().eq(7).append($('<label> 숫자/문자 타입  </label>'));
-	               pr.children().eq(7).append($('<select data-type="param" style="width: 75%" class = "selectDataBox">'));
-	               pr.children().eq(7).children().eq(1).append($('<option value="int">Int</option>'));
-	               pr.children().eq(7).children().eq(1).append($('<option value="double">Double</option>'));
-	               pr.children().eq(7).children().eq(1).append($('<option value="string">String</option>'));
-	               pr.children().eq(7).children().eq(1).append($('<option value="char">Char</option>'));
-	               
 	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(8).append($('<label> 최소값 </label>'));
-	               pr.children().eq(8).append($('<input type="text" placeholder="최소 값" style="width: 75%">'));
+	               pr.children().eq(7).append($('<label> 반복 횟수 출력 여부 </label>'));
+	               pr.children().eq(7).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="yes">True</option>'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(9).append($('<label> 최대값 </label>'));
-	               pr.children().eq(9).append($('<input type="text" placeholder="최대 값" style="width: 75%">'));
+	               pr.children().eq(8).append($('<label> 행/열 출력 여부 </label>'));
+	               pr.children().eq(8).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(8).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(8).children().eq(1).append($('<option value="yes">True</option>'));
+	               
+	               pr.append($('<div class="lineAll"></div>'));
+	               pr.children().eq(9).append($('<label> 숫자/문자 타입  </label>'));
+	               pr.children().eq(9).append($('<select data-type="param" style="width: 75%" class = "selectDataBox">'));
+	               pr.children().eq(9).children().eq(1).append($('<option value="int">Int</option>'));
+	               pr.children().eq(9).children().eq(1).append($('<option value="double">Double</option>'));
+	               pr.children().eq(9).children().eq(1).append($('<option value="string">String</option>'));
+	               pr.children().eq(9).children().eq(1).append($('<option value="char">Char</option>'));
+	               
+	               pr.append($('<div class="lineLeft"></div>'));
+	               pr.children().eq(10).append($('<label> 최소값 </label>'));
+	               pr.children().eq(10).append($('<input type="text" placeholder="최소 값" style="width: 75%">'));
+	               
+	               pr.append($('<div class="lineRight"></div>'));
+	               pr.children().eq(11).append($('<label> 최대값 </label>'));
+	               pr.children().eq(11).append($('<input type="text" placeholder="최대 값" style="width: 75%">'));
 	               
 	               break;
 	            case "2" : // Tree
-	               pr.append($('<div class="lineAll"></div>'));
-	               pr.children().eq(1).append($('<label> 노드 개수 </label>'));
-	               pr.children().eq(1).append($('<input type="text" placeholder="노드 개수" style="width: 75%">'));
-	               
-	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(2).append($('<label> 숫자/문자 타입  </label>'));
-	               pr.children().eq(2).append($('<select data-type="param" style="width: 75%" class = "selectTypeBox">'));
-	               pr.children().eq(2).children().eq(1).append($('<option value="int">Int</option>'));
-	               pr.children().eq(2).children().eq(1).append($('<option value="char">char</option>'));
+		           pr.append($('<div class="lineLeft"></div>'));
+			       pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
+			       pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(3).append($('<label> 정점 시작 번호 </label>'));
-	               pr.children().eq(3).append($('<input type="text" placeholder="시작 번호 값" style="width: 75%">'));
+	               pr.children().eq(2).append($('<label> 노드 개수 </label>'));
+	               pr.children().eq(2).append($('<input type="text" placeholder="노드 개수" style="width: 75%">'));
 	               
-	               pr.append($('<div class="lineAll"></div>'));
-	               pr.children().eq(4).append($('<label> 가중치 여부  </label>'));
-	               pr.children().eq(4).append($('<select data-type="param" style="width: 75%" class = "selectWeightBox">'));
-	               pr.children().eq(4).children().eq(1).append($('<option value="false">False</option>'));
-	               pr.children().eq(4).children().eq(1).append($('<option value="true">True</option>'));
-	               
-	               break;
-	            case "3" : // Graph
-	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(1).append($('<label> 정점 개수 </label>'));
-	               pr.children().eq(1).append($('<input type="text" placeholder="정점 개수" style="width: 75%">'));
-	                
-	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(2).append($('<label> 간선 개수 </label>'));
-	               pr.children().eq(2).append($('<input type="text" placeholder="간선 개수" style="width: 75%">'));
-	                     
 	               pr.append($('<div class="lineLeft"></div>'));
 	               pr.children().eq(3).append($('<label> 숫자/문자 타입  </label>'));
 	               pr.children().eq(3).append($('<select data-type="param" style="width: 75%" class = "selectTypeBox">'));
@@ -222,16 +208,70 @@ $(document).on("change",".selectInputBox", function(){
 	               pr.children().eq(4).append($('<input type="text" placeholder="시작 번호 값" style="width: 75%">'));
 	               
 	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(5).append($('<label> 방향 여부 </label>'));
-	               pr.children().eq(5).append($('<select data-type="param" style="width: 75%" >'));
-	               pr.children().eq(5).children().eq(1).append($('<option value="false">False</option>'));
-	               pr.children().eq(5).children().eq(1).append($('<option value="true">True</option>'));
+	               pr.children().eq(5).append($('<label> 반복 횟수 출력 여부 </label>'));
+	               pr.children().eq(5).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(5).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(5).children().eq(1).append($('<option value="yes">True</option>'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(6).append($('<label> 가중치 여부  </label>'));
-	               pr.children().eq(6).append($('<select data-type="param" style="width: 75%" class = "selectWeightBox">'));
+	               pr.children().eq(6).append($('<label> 노드 개수 출력 여부 </label>'));
+	               pr.children().eq(6).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(6).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(6).children().eq(1).append($('<option value="yes">True</option>'));
+	               
+	               pr.append($('<div class="lineAll"></div>'));
+	               pr.children().eq(7).append($('<label> 가중치 여부  </label>'));
+	               pr.children().eq(7).append($('<select data-type="param" style="width: 75%" class = "selectWeightBox">'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="yes">True</option>'));
+	               
+	               break;
+	            case "3" : // Graph
+	               pr.append($('<div class="lineLeft"></div>'));
+		           pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
+		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
+		               
+	               pr.append($('<div class="lineRight"></div>'));
+	               pr.children().eq(2).append($('<label> 정점 개수 </label>'));
+	               pr.children().eq(2).append($('<input type="text" placeholder="정점 개수" style="width: 75%">'));
+	                
+	               pr.append($('<div class="lineLeft"></div>'));
+	               pr.children().eq(3).append($('<label> 간선 개수 </label>'));
+	               pr.children().eq(3).append($('<input type="text" placeholder="간선 개수" style="width: 75%">'));
+	                     
+	               pr.append($('<div class="lineRight"></div>'));
+	               pr.children().eq(4).append($('<label> 숫자/문자 타입  </label>'));
+	               pr.children().eq(4).append($('<select data-type="param" style="width: 75%" class = "selectTypeBox">'));
+	               pr.children().eq(4).children().eq(1).append($('<option value="int">Int</option>'));
+	               pr.children().eq(4).children().eq(1).append($('<option value="char">char</option>'));
+	               
+	               pr.append($('<div class="lineLeft"></div>'));
+	               pr.children().eq(5).append($('<label> 정점 시작 번호 </label>'));
+	               pr.children().eq(5).append($('<input type="text" placeholder="시작 번호 값" style="width: 75%">'));
+	               
+	               pr.append($('<div class="lineRight"></div>'));
+	               pr.children().eq(6).append($('<label> 방향 여부 </label>'));
+	               pr.children().eq(6).append($('<select data-type="param" style="width: 75%" >'));
 	               pr.children().eq(6).children().eq(1).append($('<option value="false">False</option>'));
 	               pr.children().eq(6).children().eq(1).append($('<option value="true">True</option>'));
+	               
+	               pr.append($('<div class="lineLeft"></div>'));
+	               pr.children().eq(7).append($('<label> 반복 횟수 출력 여부 </label>'));
+	               pr.children().eq(7).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="false">False</option>'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="true">True</option>'));
+	               
+	               pr.append($('<div class="lineRight"></div>'));
+	               pr.children().eq(8).append($('<label> 노드/정점 개수 출력 여부 </label>'));
+	               pr.children().eq(8).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(8).children().eq(1).append($('<option value="false">False</option>'));
+	               pr.children().eq(8).children().eq(1).append($('<option value="true">True</option>'));
+	               
+	               pr.append($('<div class="lineAll"></div>'));
+	               pr.children().eq(9).append($('<label> 가중치 여부  </label>'));
+	               pr.children().eq(9).append($('<select data-type="param" style="width: 75%" class = "selectWeightBox">'));
+	               pr.children().eq(9).children().eq(1).append($('<option value="false">False</option>'));
+	               pr.children().eq(9).children().eq(1).append($('<option value="true">True</option>'));
 	               
 	               break;
 	         }
@@ -312,7 +352,18 @@ $(".btn").click(function(){
 	  var inputDataType = cr.children(0);
 	  $('.selectInputBox').each(function(){
 		  var len = $(this).parent().parent().children().length;
-		  makeNumberString($(this).parent(), len);
+		  var dataType = $(this).parent().find("select option:selected").val();
+		  console.log(dataType);
+		  
+		  if(dataType == "0"){ // 숫자/문자
+			  makeNumberString($(this).parent(), len);			  
+		  }else if(dataType == "1"){ // 배열
+			  makeArray($(this).parent(), len);
+		  }else if(dataType == "2"){ // 트리
+			  makeTree($(this).parent(), len);
+		  }else if(dataType == "3"){ // 그래프
+			  makeGraph($(this).parent(), len);
+		  }
 	  });
 
 });
@@ -323,8 +374,7 @@ function makeNumberString(thisObj, len){
 	console.log(element);
 	element.each(function(){
 		if($(this).find("select").length != 0){
-			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은
-																// 제외하고
+			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은 제외하고
 				dataAttr.push($(this).find("select option:selected").val());
 			}
 		}else if($(this).find("input").length != 0){
@@ -333,27 +383,29 @@ function makeNumberString(thisObj, len){
 	});
 	
 	console.log(dataAttr);
+	if(dataAttr[1] == 'yes'){ // 반복 횟수 출력해야 한다면
+		var OutputTag = $("textarea[name='member_name']");
+		OutputTag.val(OutputTag.val() + dataAttr[0] + "\n");
+	}
+	
 	if(dataAttr[2] == 'int'){ // 숫자/문자타입이 int라면
 		var OutputTag = $("textarea[name='member_name']");
 		for (var i = 0; i < dataAttr[0]; i++) {
 			var n = Math.floor(Math.random() * parseInt(dataAttr[4])) + parseInt(dataAttr[3]);
-			OutputTag.val(OutputTag.val() + n + " ");
+			OutputTag.val(OutputTag.val() + n + "\n");
 		}
-		OutputTag.val(OutputTag.val() + "\n"); // 띄어쓰기
 	}else if(dataAttr[2] == 'double'){
 		var OutputTag = $("textarea[name='member_name']");
 		for (var i = 0; i < dataAttr[0]; i++) {
 			var n = Number(Math.random() * dataAttr[4] + dataAttr[3]);
-			OutputTag.val(OutputTag.val() + n.toFixed(2) + " ");
+			OutputTag.val(OutputTag.val() + n.toFixed(2) + "\n");
 		}
-		OutputTag.val(OutputTag.val() + "\n"); // 띄어쓰기
 	} else if(dataAttr[2] == 'char'){
 		var OutputTag = $("textarea[name='member_name']");
 		for (var i = 0; i < dataAttr[0]; i++) {
 			var n = dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
-			OutputTag.val(OutputTag.val() + n + " ");
+			OutputTag.val(OutputTag.val() + n + "\n");
 		}
-		OutputTag.val(OutputTag.val() + "\n")
 	} else if(dataAttr[2] == 'string'){
 		var OutputTag = $("textarea[name='member_name']");
 		for (var i = 0; i < dataAttr[0]; i++) {
@@ -361,12 +413,12 @@ function makeNumberString(thisObj, len){
 			for (var j = 0; j < dataAttr[4]; j++) {
 				n += dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
 			}
-			OutputTag.val(OutputTag.val() + n + " ");
+			OutputTag.val(OutputTag.val() + n + "\n");
 		}
-		OutputTag.val(OutputTag.val() + "\n")
 	}
 }
 
+<<<<<<< HEAD
 $(document).on('click', '.toggleBG', function () {
     var toggleBG = $(this);
     var toggleFG = $(this).find('.toggleFG');
@@ -397,3 +449,90 @@ function toggleActionStart(toggleBtn, LR) {
         clearInterval(intervalID);
     }, 201);
 }
+=======
+function makeArray(thisObj, len){
+	var element = thisObj.parent().children();
+	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
+	console.log(element);
+	element.each(function(){
+		if($(this).find("select").length != 0){
+			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은 제외하고
+				dataAttr.push($(this).find("select option:selected").val());
+			}
+		}else if($(this).find("input").length != 0){
+			dataAttr.push($(this).find("input").val());
+		}
+	});
+	
+	console.log(dataAttr); // 0~8
+	
+	if(dataAttr[6] == 'yes'){ // 반복 횟수 출력해야한다면
+		var OutputTag = $("textarea[name='member_name']");
+		OutputTag.val(OutputTag.val() + dataAttr[0] + "\n");
+	}
+	
+	for (var test_case = 0; test_case < parseInt(dataAttr[0]); test_case++) { // 반복 횟수 만큼 반복
+		var rowLen = Math.floor(Math.random() * parseInt(dataAttr[3])) + parseInt(dataAttr[2]); // 행 최소값, 최대값 이용해서 랜덤 행 길이 뽑기
+		var colLen = Math.floor(Math.random() * parseInt(dataAttr[5])) + parseInt(dataAttr[4]); // 열 최소값, 최대값 이용해서 랜덤 열 길이 뽑기
+		
+		console.log("행 값 : " + rowLen);
+		console.log("열 값 : " + colLen);
+		
+		var resultArray = new Array(rowLen); // 이차원 배열 생성
+		for (var i = 0; i < rowLen; i++) {
+			resultArray[i] = new Array(colLen);
+		}
+		
+		if(dataAttr[7] == 'yes'){ // 행/열 출력해야한다면
+			var OutputTag = $("textarea[name='member_name']");
+			OutputTag.val(OutputTag.val() + rowLen + " " + colLen + "\n");
+		}
+		
+		if(dataAttr[8] == 'int'){ // 숫자/문자타입이 int라면
+			var OutputTag = $("textarea[name='member_name']");
+			for (var i = 0; i < rowLen; i++) {
+				var tmpStr = "";
+				for (var j = 0; j < colLen; j++) {
+					var n = Math.floor(Math.random() * parseInt(dataAttr[10])) + parseInt(dataAttr[9]);
+					tmpStr = tmpStr + n + " ";
+				}
+				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기			
+			}
+		}else if(dataAttr[8] == 'double'){
+			var OutputTag = $("textarea[name='member_name']");
+			for (var i = 0; i < rowLen; i++) {
+				var tmpStr = "";
+				for (var j = 0; j < colLen; j++) {
+					var n = Number(Math.random() * dataAttr[10] + dataAttr[9]);
+					tmpStr = tmpStr + n.toFixed(2) + " ";
+				}
+				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기	
+			}
+		} else if(dataAttr[8] == 'char'){
+			var OutputTag = $("textarea[name='member_name']");
+			for (var i = 0; i < rowLen; i++) {
+				var tmpStr = "";
+				for (var j = 0; j < colLen; j++) {
+					var n = dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
+					tmpStr = tmpStr + n + " ";
+				}
+				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기	
+			}
+		} else if(dataAttr[8] == 'string'){
+			var OutputTag = $("textarea[name='member_name']");
+			for (var i = 0; i < rowLen; i++) {
+				var tmpStr = "";
+				for (var j = 0; j < colLen; j++) {
+					var n = "";
+					for (var k = 0; k < dataAttr[10]; k++) {
+						n += dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
+					}
+					tmpStr = tmpStr + n + " ";
+				}
+				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기	
+			}
+		}
+	}
+	
+}
+>>>>>>> branch 'master' of https://github.com/kwang5348/TC_Generator.git
