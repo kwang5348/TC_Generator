@@ -30,7 +30,7 @@ Line.prototype.create = function(){
       <h5>라인</h5>
          </a> 
             <span class="icon2">
-               <button class="removeLineBtn">라인삭제</button>
+               <button class="removeLineBtn"><i class="far fa-trash-alt"></i></button>
             </span>
             
          </div>
