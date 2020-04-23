@@ -371,21 +371,25 @@ $(document).on("change",".selectWeightBox", function(){
 
 $(".btn").click(function(){
 	$("textarea[name='member_name']").val("");	
-	
-	  $('.selectInputBox').each(function(){
-		  var len = $(this).parent().parent().children().length;
-		  var dataType = $(this).parent().find("select option:selected").val();
-		  
-		  if(dataType == "0"){ // 숫자/문자
-			  makeNumberString($(this).parent(), len);			  
-		  }else if(dataType == "1"){ // 배열
-			  makeArray($(this).parent(), len);
-		  }else if(dataType == "2"){ // 트리
-			  makeTree($(this).parent(), len);
-		  }else if(dataType == "3"){ // 그래프
-			  makeGraph($(this).parent(), len);
-		  }
-	  });
+
+	var tcNum = $("#tcNum").val();
+	console.log(tcNum);
+	for (var i = 0; i < tcNum; i++) { // 테스트 케이스 반복
+		$('.selectInputBox').each(function(){
+			var len = $(this).parent().parent().children().length;
+			var dataType = $(this).parent().find("select option:selected").val();
+			
+			if(dataType == "0"){ // 숫자/문자
+				makeNumberString($(this).parent(), len);			  
+			}else if(dataType == "1"){ // 배열
+				makeArray($(this).parent(), len);
+			}else if(dataType == "2"){ // 트리
+				makeTree($(this).parent(), len);
+			}else if(dataType == "3"){ // 그래프
+				makeGraph($(this).parent(), len);
+			}
+		});		
+	}
 
 });
 
@@ -424,7 +428,7 @@ function makeNumberString(thisObj, len){
 		}
 	} else if(dataAttr[2] == 'char'){
 		var OutputTag = $("textarea[name='member_name']");
-		if(dataAttr[4] == 'true'){
+		if(dataAttr[4] == 'true'){ 
 			for (var i = 0; i < dataAttr[0]; i++) {
 				var n = dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
 				OutputTag.val(OutputTag.val() + n + "\n");
@@ -461,17 +465,31 @@ function makeNumberString(thisObj, len){
 		}
 	} else if(dataAttr[2] == 'string'){
 		var OutputTag = $("textarea[name='member_name']");
-		if(dataAttr[5] == 'true'){
-			for (var i = 0; i < dataAttr[0]; i++) {
+		var strSet = new Set();
+		
+		var strNum = dataAttr[3].length; // 출현 가능 문자 개수 
+		var strLen = dataAttr[4]; // 문자열 길이
+		if(dataAttr[5] == 'true'){ // 동일 char 출현 허용
+			if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다 적으면 출력불가 조건 추가
+				OutputTag.val("출력이 불가능한 경우입니다.")
+			}
+			
+			var cnt = 0;
+			while(cnt < dataAttr[0]){
 				var n = "";
 				for (var j = 0; j < dataAttr[4]; j++) {
 					n += dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
 				}
-				OutputTag.val(OutputTag.val() + n + "\n");
+				console.log(n);
+				if(!strSet.has(n)){
+					cnt++;
+					strSet.add(n);
+					OutputTag.val(OutputTag.val() + n + "\n");
+				}
 			}
 		}
-		else{
-			if(dataAttr[4] > dataAttr[3].length){
+		else{ // 동일 char 출현 허용 x
+			if(strLen > strNum){ // 만약 abc, 2개면 경우의 수 6개인데 반복횟수가 6보다 크면 출력 불가 이 경우 조건 추가 요망.
 				OutputTag.val("출력이 불가능한 경우입니다.")
 			}
 			else{
@@ -480,9 +498,8 @@ function makeNumberString(thisObj, len){
 					temp[i] = i;
 				}
 				
-			
-				for (var i = 0; i < dataAttr[0]; i++) {
-									
+				var cnt = 0;
+				while(cnt < dataAttr[0]){
 					for (var j = 0; j < 20; j++) {
 						var ran = Math.floor(Math.random()*dataAttr[3].length);
 						var ran2 = Math.floor(Math.random()*dataAttr[3].length);
@@ -499,9 +516,13 @@ function makeNumberString(thisObj, len){
 					for (var j = 0; j < dataAttr[4]; j++) {
 						str += dataAttr[3].charAt(temp[j]);
 					}
-					OutputTag.val(OutputTag.val() + str + "\n");
-				}
-						
+					console.log(str);
+					if(!strSet.has(str)){
+						cnt++;
+						strSet.add(str);
+						OutputTag.val(OutputTag.val() + str + "\n");
+					}
+				}		
 			}
 		}
 	}
@@ -592,19 +613,36 @@ function makeArray(thisObj, len){
 				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
 			}
 		} else if(dataAttr[8] == 'string'){
-			var OutputTag = $("textarea[name='member_name']");
-			for (var i = 0; i < rowLen; i++) {
-				var tmpStr = "";
-				for (var j = 0; j < colLen; j++) {
-					var n = "";
-					for (var k = 0; k < dataAttr[10]; k++) {
-						n += dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
+			if(dataAttr[11] == 'true'){ // 동일 char true경우 추가
+				var strNum = dataAttr[9].length; // 출현 가능 문자 개수 
+				var strLen = dataAttr[10]; // 문자열 길이
+				var OutputTag = $("textarea[name='member_name']");
+				if(Math.pow(strNum,strLen) < rowLen*colLen){ // 문자열 경우의 수가 행*열 개수보다 적으면 출력불가 조건 추가
+					OutputTag.val("출력이 불가능한 경우입니다.")
+				}else{
+					var strSet = new Set();
+					
+					for (var i = 0; i < rowLen; i++) {
+						var tmpStr = "";
+						var cnt = 0;
+						while(cnt < colLen){
+							var n = "";
+							for (var j = 0; j < dataAttr[10]; j++) {
+								n += dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
+							}
+							console.log(n);
+							if(!strSet.has(n)){
+								cnt++;
+								strSet.add(n);
+								tmpStr = tmpStr + n + " ";
+							}
+						}
+						OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
 					}
-					tmpStr = tmpStr + n + " ";
-				}
-				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
+				}		
+			}else{ // 동일 char false인 경우를 추가하라 팥 ㅡㅡ! (감시망)
+				
 			}
 		}
 	}
-	
 }
