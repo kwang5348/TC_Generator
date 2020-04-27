@@ -91,6 +91,12 @@ $(document).on("click", ".removeLineBtn", function() {
 	      
 });
 
+$(document).on("click", ".refreshBtn", function() {
+    
+	var OutputTag = $("textarea[name='member_name']");
+	OutputTag.val("");
+	      
+});
 
 $(document).on("change",".selectInputBox", function(){
 	         var selectValue = $("option:selected",this).val();
