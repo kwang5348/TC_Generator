@@ -322,11 +322,15 @@ $(document).on("change",".selectDataBox", function(){
 	                  $(this).parent().next().next().next().children().eq(1).append($('<option value="true">True</option>'));
 	                  $(this).parent().next().next().next().children().eq(1).append($('<option value="false">False</option>'));
 	                  
-//	                  pr.append($('<div class="lineRight"></div>'));
-//	                  $(this).parent().next().next().next().next().append($('<label> 동일 String 출현 허용 </label>'));
-//	                  $(this).parent().next().next().next().next().append($('<select data-type="param" style="width: 75%">'));
-//	                  $(this).parent().next().next().next().next().children().eq(1).append($('<option value="true">True</option>'));
-//	                  $(this).parent().next().next().next().next().children().eq(1).append($('<option value="false">False</option>'));
+// pr.append($('<div class="lineRight"></div>'));
+// $(this).parent().next().next().next().next().append($('<label> 동일 String 출현
+// 허용 </label>'));
+// $(this).parent().next().next().next().next().append($('<select
+// data-type="param" style="width: 75%">'));
+// $(this).parent().next().next().next().next().children().eq(1).append($('<option
+// value="true">True</option>'));
+// $(this).parent().next().next().next().next().children().eq(1).append($('<option
+// value="false">False</option>'));
 	                  
 	                  
 	                  break;
@@ -392,6 +396,107 @@ $(".btn").click(function(){
 	}
 
 });
+
+function makeGraph(thisObj, len){
+	var element = thisObj.parent().children();
+	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
+	console.log(element);
+	
+	element.each(function(){
+		if($(this).find("select").length != 0){
+			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은
+																// 제외하고
+				dataAttr.push($(this).find("select option:selected").val());
+			}
+		}else if($(this).find("input").length != 0){
+			dataAttr.push($(this).find("input").val());
+		}
+	});
+
+	console.log(dataAttr);
+	
+	for (var test_case = 0; test_case < parseInt(dataAttr[0]); test_case++){
+		var repeat = parseInt(dataAttr[0]);
+		var node = parseInt(dataAttr[1]);
+		var vertex = parseInt(dataAttr[2]);
+		var OutputTag = $("textarea[name='member_name']");
+		
+		if(dataAttr[6] == 'true'){ // 반복 횟수 출력 여부
+			OutputTag.val(OutputTag.val() + (test_case+1) + "\n");
+		}
+		
+		if(dataAttr[7] == 'true'){ // 노드/정점 개수 출력 여부
+			OutputTag.val(OutputTag.val() + node + " " + vertex + "\n");
+		}
+		
+		
+		var map = new Map();
+
+		for (var i = 0; i < vertex; i++) {
+			var input = "";
+			
+			if(dataAttr[5] == 'true'){ // 유향 그래프
+				if(vertex > node * (node-1)){
+					OutputTag.val(OutputTag.val() + "간선 개수가 " + node*(node-1) + "개 이하여야 합니다.\n");
+					return;
+				}
+				if(dataAttr[3] == 'int'){ // 유향 중 int형인 경우
+					var startNode = parseInt(dataAttr[4]);
+					var sn = Math.floor(Math.random() * node) + startNode; // 열
+					var en = Math.floor(Math.random() * node) + startNode;
+					
+					var temp = "" + sn + " " + en + " ";
+					var length = map.size();
+					map.put(temp);
+					if(length == map.size() || sn == en){
+						i--;
+						continue;
+					} else { 
+						input += temp;
+					}
+				} else {  // 유향 중 char형인 경우
+
+				}
+			} else { // 무향그래프
+				if(dataAttr[3] == 'int'){ // 무향 중 int형인 경우
+					if(vertex > node * (node-1)/2){
+						OutputTag.val(OutputTag.val() + "간선 개수가 " + node*(node-1)/2 + "개 이하여야 합니다.\n");
+						return;
+					}
+
+					var startNode = parseInt(dataAttr[4]);
+					var sn = Math.floor(Math.random() * node) + startNode; // 열
+					var en = Math.floor(Math.random() * node) + startNode;
+					
+					var temp = "" + sn + " " + en + " ";
+					var temp2 = " " + en + " " + sn + " ";
+					var length = map.size();
+					map.put(temp);
+					map.put(temp2);
+					if(length == map.size() || length == map.size() + 1 || sn == en){
+						i--;
+						continue;
+					} else { 
+						input += temp;
+					}
+				}
+			}
+			
+			if(dataAttr[8] == 'true'){ // 가중치 설정
+				var min = parseInt(dataAttr[9]);
+				var max = parseInt(dataAttr[10]);
+				var n = Math.floor(Math.random() * (max - min)) + min;
+				input += n;
+			}
+			OutputTag.val(OutputTag.val() + input + "\n");
+			
+		}
+		
+
+	
+	}
+
+}
 
 function makeNumberString(thisObj, len){
 	var element = thisObj.parent().children();
@@ -467,10 +572,11 @@ function makeNumberString(thisObj, len){
 		var OutputTag = $("textarea[name='member_name']");
 		var strSet = new Set();
 		
-		var strNum = dataAttr[3].length; // 출현 가능 문자 개수 
+		var strNum = dataAttr[3].length; // 출현 가능 문자 개수
 		var strLen = dataAttr[4]; // 문자열 길이
 		if(dataAttr[5] == 'true'){ // 동일 char 출현 허용
-			if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다 적으면 출력불가 조건 추가
+			if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다 적으면
+														// 출력불가 조건 추가
 				OutputTag.val("출력이 불가능한 경우입니다.")
 			}
 			
@@ -489,7 +595,8 @@ function makeNumberString(thisObj, len){
 			}
 		}
 		else{ // 동일 char 출현 허용 x
-			if(strLen > strNum){ // 만약 abc, 2개면 경우의 수 6개인데 반복횟수가 6보다 크면 출력 불가 이 경우 조건 추가 요망.
+			if(strLen > strNum){ // 만약 abc, 2개면 경우의 수 6개인데 반복횟수가 6보다 크면 출력 불가
+									// 이 경우 조건 추가 요망.
 				OutputTag.val("출력이 불가능한 경우입니다.")
 			}
 			else{
@@ -614,10 +721,12 @@ function makeArray(thisObj, len){
 			}
 		} else if(dataAttr[8] == 'string'){
 			if(dataAttr[11] == 'true'){ // 동일 char true경우 추가
-				var strNum = dataAttr[9].length; // 출현 가능 문자 개수 
+				var strNum = dataAttr[9].length; // 출현 가능 문자 개수
 				var strLen = dataAttr[10]; // 문자열 길이
 				var OutputTag = $("textarea[name='member_name']");
-				if(Math.pow(strNum,strLen) < rowLen*colLen){ // 문자열 경우의 수가 행*열 개수보다 적으면 출력불가 조건 추가
+				if(Math.pow(strNum,strLen) < rowLen*colLen){ // 문자열 경우의 수가
+																// 행*열 개수보다 적으면
+																// 출력불가 조건 추가
 					OutputTag.val("출력이 불가능한 경우입니다.")
 				}else{
 					var strSet = new Set();
@@ -646,3 +755,58 @@ function makeArray(thisObj, len){
 		}
 	}
 }
+
+
+Map = function(){
+	this.map = new Object();
+};   
+Map.prototype = {   
+		put : function(key, value){   
+			this.map[key] = value;
+	    },   
+	    get : function(key){   
+	        return this.map[key];
+	    },
+	    containsKey : function(key){    
+	     return key in this.map;
+	    },
+	    containsValue : function(value){    
+	     for(var prop in this.map){
+	      if(this.map[prop] == value) return true;
+	     }
+	     return false;
+	    },
+	    isEmpty : function(key){    
+	     return (this.size() == 0);
+	    },
+	    clear : function(){   
+	     for(var prop in this.map){
+	      delete this.map[prop];
+	     }
+	    },
+	    remove : function(key){    
+	     delete this.map[key];
+	    },
+	    keys : function(){   
+	        var keys = new Array();   
+	        for(var prop in this.map){   
+	            keys.push(prop);
+	        }   
+	        return keys;
+	    },
+	    values : function(){   
+	     var values = new Array();   
+	        for(var prop in this.map){   
+	         values.push(this.map[prop]);
+	        }   
+	        return values;
+	    },
+	    size : function(){
+	      var count = 0;
+	      for (var prop in this.map) {
+	        count++;
+	      }
+	      return count;
+	    }
+	};
+
