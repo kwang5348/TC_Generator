@@ -566,6 +566,7 @@ function makeGraph(thisObj, len){
 				}
 				if(dataAttr[3] == 'int'){ // 유향 중 int형인 경우
 					var startNode = parseInt(dataAttr[4]);
+		
 					var sn = Math.floor(Math.random() * node) + startNode; // 열
 					var en = Math.floor(Math.random() * node) + startNode;
 					
@@ -579,7 +580,29 @@ function makeGraph(thisObj, len){
 						input += temp;
 					}
 				} else {  // 유향 중 char형인 경우
-
+					var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+					var startNode = -1;
+					for (var j = 0; i < charSet.length; j++) {
+						if(dataAttr[4] == charSet.charAt(j)){
+							startNode = j;
+							break;
+						}
+					}
+					var sn = Math.floor(Math.random() * node) + startNode;
+					var en = Math.floor(Math.random() * node) + startNode;
+					if(sn >= 26 && en >= 26){
+						i--;
+						continue;
+					}
+					var temp = "" + charSet.charAt(sn) + " " + charSet.charAt(en) + " ";
+					var length = map.size();
+					map.put(temp);
+					if(length == map.size() || sn == en){
+						i--;
+						continue;
+					} else { 
+						input += temp;
+					}
 				}
 			} else { // 무향그래프
 				if(dataAttr[3] == 'int'){ // 무향 중 int형인 경우
@@ -594,6 +617,32 @@ function makeGraph(thisObj, len){
 					
 					var temp = "" + sn + " " + en + " ";
 					var temp2 = " " + en + " " + sn + " ";
+					var length = map.size();
+					map.put(temp);
+					map.put(temp2);
+					if(length == map.size() || length == map.size() + 1 || sn == en){
+						i--;
+						continue;
+					} else { 
+						input += temp;
+					}
+				} else {
+					var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+					var startNode = -1;
+					for (var j = 0; i < charSet.length; j++) {
+						if(dataAttr[4] == charSet.charAt(j)){
+							startNode = j;
+							break;
+						}
+					}
+					var sn = Math.floor(Math.random() * node) + startNode;
+					var en = Math.floor(Math.random() * node) + startNode;
+					if(sn >= 26 && en >= 26){
+						i--;
+						continue;
+					}
+					var temp = "" + charSet.charAt(sn) + " " + charSet.charAt(en) + " ";
+					var temp2 = " " + charSet.charAt(en) + " " + charSet.charAt(sn) + " ";
 					var length = map.size();
 					map.put(temp);
 					map.put(temp2);
