@@ -215,20 +215,21 @@ $(document).on("change",".selectInputBox", function(){
 	               pr.append($('<div class="lineLeft"></div>'));
 	               pr.children().eq(5).append($('<label> 반복 횟수 출력 여부 </label>'));
 	               pr.children().eq(5).append($('<select data-type="param" style="width: 75%">'));
-	               pr.children().eq(5).children().eq(1).append($('<option value="no">False</option>'));
-	               pr.children().eq(5).children().eq(1).append($('<option value="yes">True</option>'));
+	               pr.children().eq(5).children().eq(1).append($('<option value="false">False</option>'));
+	               pr.children().eq(5).children().eq(1).append($('<option value="true">True</option>'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(6).append($('<label> 노드 개수 출력 여부 </label>'));
 	               pr.children().eq(6).append($('<select data-type="param" style="width: 75%">'));
-	               pr.children().eq(6).children().eq(1).append($('<option value="no">False</option>'));
-	               pr.children().eq(6).children().eq(1).append($('<option value="yes">True</option>'));
+	               pr.children().eq(6).children().eq(1).append($('<option value="false">False</option>'));
+	               pr.children().eq(6).children().eq(1).append($('<option value="true">True</option>'));
+	               
 	               
 	               pr.append($('<div class="lineAll"></div>'));
 	               pr.children().eq(7).append($('<label> 가중치 여부  </label>'));
 	               pr.children().eq(7).append($('<select data-type="param" style="width: 75%" class = "selectWeightBox">'));
-	               pr.children().eq(7).children().eq(1).append($('<option value="no">False</option>'));
-	               pr.children().eq(7).children().eq(1).append($('<option value="yes">True</option>'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="false">False</option>'));
+	               pr.children().eq(7).children().eq(1).append($('<option value="true">True</option>'));
 	               
 	               break;
 	            case "3" : // Graph
@@ -403,6 +404,123 @@ $(".btn").click(function(){
 
 });
 
+function makeTree(thisObj, len){
+	var element = thisObj.parent().children();
+	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
+	console.log(element);
+	
+	element.each(function(){
+		if($(this).find("select").length != 0){
+			if($(this).find(".selectInputBox").length != 1){ // 입력데이터타입칸은
+																// 제외하고
+				dataAttr.push($(this).find("select option:selected").val());
+			}
+		}else if($(this).find("input").length != 0){
+			dataAttr.push($(this).find("input").val());
+		}
+	});
+
+	console.log(dataAttr);
+	
+	for (var test_case = 0; test_case < parseInt(dataAttr[0]); test_case++){
+		var repeat = parseInt(dataAttr[0]);
+		var node = parseInt(dataAttr[1]);
+		var OutputTag = $("textarea[name='member_name']");
+		(7) ["1", "3", "int", "5", "no", "no", "no"]
+		
+		if(dataAttr[4] == 'true'){ // 반복 횟수 출력 여부
+			OutputTag.val(OutputTag.val() + (test_case+1) + "\n");
+		}
+		
+		if(dataAttr[5] == 'true'){ // 노드 개수 출력 여부
+			OutputTag.val(OutputTag.val() + node + " " + vertex + "\n");
+		}
+		
+		
+			var input = "";
+			if(dataAttr[2] == 'int'){ // 무향 int형인 경우
+				
+				var startNode = parseInt(dataAttr[3]);
+				
+				var temp = new Array();
+				for (var i = 0; i < node; i++) {
+					temp[i] = i+startNode;
+				}
+					
+					
+					for (var i = 0; i < 100; i++) {
+						var ran = Math.floor(Math.random()*node);
+						var ran2 = Math.floor(Math.random()*node);
+						
+						console.log(ran + " " + ran2);
+						var n = temp[ran];
+						temp[ran] = temp[ran2];
+						temp[ran2] = n;
+						
+					}
+					var curV = 0;
+					var curC = 1;
+					
+					
+					for (var i = 0; i < node-1; i++) {
+						
+						OutputTag.val(OutputTag.val() + temp[curV] + " " + temp[curC++] + "\n");
+						if(i%2 == 1){
+							curV++;
+						}
+						
+						if(dataAttr[6] == 'true'){ // 가중치 설정
+							var min = parseInt(dataAttr[7]);
+							var max = parseInt(dataAttr[8])+1;
+							var n = Math.floor(Math.random() * (max - min)) + min;
+							input += n;
+						}
+					}
+							
+				
+			}
+			else{
+				var startNode = dataAttr[3];
+				
+				var temp = new Array();
+				for (var i = 0; i < node; i++){
+					temp[i] = String.fromCharCode(i+startNode.charCodeAt(0));
+				}
+				
+				for (var i = 0; i < 100; i++) {
+					var ran = Math.floor(Math.random()*node);
+					var ran2 = Math.floor(Math.random()*node);
+				
+					var n = temp[ran];
+					temp[ran] = temp[ran2];
+					temp[ran2] = n;
+						
+				}
+				var curV = 0;
+				var curC = 1;
+				
+				
+				for (var i = 0; i < node-1; i++) {
+					
+					OutputTag.val(OutputTag.val() + temp[curV] + " " + temp[curC++] + "\n");
+					if(i%2 == 1){
+						curV++;
+					}
+				
+					if(dataAttr[6] == 'true'){ // 가중치 설정
+						var min = parseInt(dataAttr[7]);
+						var max = parseInt(dataAttr[8])+1;
+						var n = Math.floor(Math.random() * (max - min)) + min;
+						input += n;
+					}
+				}
+			}
+			OutputTag.val(OutputTag.val() + input + "\n");
+			
+	}
+
+}
+
 function makeGraph(thisObj, len){
 	var element = thisObj.parent().children();
 	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
@@ -490,7 +608,7 @@ function makeGraph(thisObj, len){
 			
 			if(dataAttr[8] == 'true'){ // 가중치 설정
 				var min = parseInt(dataAttr[9]);
-				var max = parseInt(dataAttr[10]);
+				var max = parseInt(dataAttr[10])+1;
 				var n = Math.floor(Math.random() * (max - min)) + min;
 				input += n;
 			}
@@ -528,13 +646,14 @@ function makeNumberString(thisObj, len){
 	if(dataAttr[2] == 'int'){ // 숫자/문자타입이 int라면
 		var OutputTag = $("textarea[name='member_name']");
 		for (var i = 0; i < dataAttr[0]; i++) {
-			var n = Math.floor(Math.random() * parseInt(dataAttr[4])) + parseInt(dataAttr[3]);
+			var n = Math.floor(Math.random() * (parseInt(dataAttr[4])+1-parseInt(dataAttr[3]))) + parseInt(dataAttr[3]);
 			OutputTag.val(OutputTag.val() + n + "\n");
 		}
 	}else if(dataAttr[2] == 'double'){
 		var OutputTag = $("textarea[name='member_name']");
 		for (var i = 0; i < dataAttr[0]; i++) {
-			var n = Number(Math.random() * dataAttr[4] + dataAttr[3]);
+			var n = Math.random() * (Number(dataAttr[4])+1-Number(dataAttr[3])) + Number(dataAttr[3]);
+			
 			OutputTag.val(OutputTag.val() + n.toFixed(2) + "\n");
 		}
 	} else if(dataAttr[2] == 'char'){
@@ -667,14 +786,14 @@ function makeArray(thisObj, len){
 																				// 횟수
 																				// 만큼
 																				// 반복
-		var rowLen = Math.floor(Math.random() * parseInt(dataAttr[3])) + parseInt(dataAttr[2]); // 행
+		var rowLen = Math.floor(Math.random() * (parseInt(dataAttr[3])+1-parseInt(dataAttr[2]))) + parseInt(dataAttr[2]); // 행
 																								// 최소값,
 																								// 최대값
 																								// 이용해서
 																								// 랜덤 행
 																								// 길이
 																								// 뽑기
-		var colLen = Math.floor(Math.random() * parseInt(dataAttr[5])) + parseInt(dataAttr[4]); // 열
+		var colLen = Math.floor(Math.random() * (parseInt(dataAttr[5])+1-parseInt(dataAttr[4]))) + parseInt(dataAttr[4]); // 열
 																								// 최소값,
 																								// 최대값
 																								// 이용해서
@@ -700,7 +819,7 @@ function makeArray(thisObj, len){
 			for (var i = 0; i < rowLen; i++) {
 				var tmpStr = "";
 				for (var j = 0; j < colLen; j++) {
-					var n = Math.floor(Math.random() * parseInt(dataAttr[10])) + parseInt(dataAttr[9]);
+					var n = Math.floor(Math.random() * (parseInt(dataAttr[10])+1-parseInt(dataAttr[9]))) + parseInt(dataAttr[9]);
 					tmpStr = tmpStr + n + " ";
 				}
 				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
@@ -710,21 +829,64 @@ function makeArray(thisObj, len){
 			for (var i = 0; i < rowLen; i++) {
 				var tmpStr = "";
 				for (var j = 0; j < colLen; j++) {
-					var n = Number(Math.random() * dataAttr[10] + dataAttr[9]);
+					var n = Math.random() * (Number(dataAttr[10])+1-Number(dataAttr[9])) + Number(dataAttr[9]);
 					tmpStr = tmpStr + n.toFixed(2) + " ";
 				}
 				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
 			}
 		} else if(dataAttr[8] == 'char'){
 			var OutputTag = $("textarea[name='member_name']");
-			for (var i = 0; i < rowLen; i++) {
-				var tmpStr = "";
-				for (var j = 0; j < colLen; j++) {
-					var n = dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
-					tmpStr = tmpStr + n + " ";
+			
+			
+			
+			if(dataAttr[10] == 'true'){ 
+				for (var i = 0; i < rowLen; i++) {
+					var tmpStr = "";
+					for (var j = 0; j < colLen; j++) {
+						var n = dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
+						tmpStr = tmpStr + n + " ";
+					}
+					OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
 				}
-				OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
 			}
+			else{
+				if(dataAttr[9].length < rowLen*colLen){
+					OutputTag.val("출력이 불가능한 경우입니다.")
+				}
+				else{
+					var temp = new Array();
+					for (var i = 0; i < dataAttr[9].length; i++) {
+						temp[i] = i;
+					}
+					
+					
+					for (var i = 0; i < 100; i++) {
+						var ran = Math.floor(Math.random()*dataAttr[9].length);
+						var ran2 = Math.floor(Math.random()*dataAttr[9].length);
+						
+						console.log(ran + " " + ran2);
+						var n = temp[ran];
+						temp[ran] = temp[ran2];
+						temp[ran2] = n;
+						
+					}
+					
+					var cnt=0;
+					
+					for (var i = 0; i < rowLen; i++) {
+						var tmpStr = "";
+						for (var j = 0; j < colLen; j++) {
+							var n = dataAttr[9].charAt(temp[cnt++]);
+							tmpStr = tmpStr + n + " ";
+						}
+						OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
+					}
+							
+				}
+			}
+			
+			
+			
 		} else if(dataAttr[8] == 'string'){
 			if(dataAttr[11] == 'true'){ // 동일 char true경우 추가
 				var strNum = dataAttr[9].length; // 출현 가능 문자 개수
@@ -755,7 +917,7 @@ function makeArray(thisObj, len){
 						OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
 					}
 				}		
-			}else{ // 동일 char false인 경우를 추가하라 팥 ㅡㅡ! (감시망)
+			}else{ 
 				
 			}
 		}
