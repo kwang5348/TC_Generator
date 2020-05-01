@@ -58,17 +58,24 @@ Line.prototype.create = function(){
 	         <select data-type="param" data-param-name="includeNTestCasesFlag" style="width: 75%">
 	         <option value="no">False</option>
 	         <option value="yes">True</option>
-         </select>
+         	</select>
          </div>
-            <div class="lineAll">
-                  <label> 숫자/문자 타입  </label> 
-                  <select data-type="param" data-param-name="inputType" class = "selectDataBox">
-                     <option value="int">Int</option>
-                     <option value="double">Double</option>
-                     <option value="char">Char</option>
-                     <option value="string">String</option>
-                </select>
-            </div>
+         <div class="lineLeft">
+	         <label> 중복 값 여부  </label> 
+	         <select data-type="param" data-param-name="includeNTestCasesFlag" style="width: 75%">
+	         <option value="no">False</option>
+	         <option value="yes">True</option>
+         	</select>
+         </div>
+         <div class="lineRight">
+             <label> 숫자/문자 타입  </label> 
+             <select data-type="param" data-param-name="inputType" class = "selectDataBox">
+                <option value="int">Int</option>
+                <option value="double">Double</option>
+                <option value="char">Char</option>
+                <option value="string">String</option>
+             </select>
+        </div>
             <div class="lineLeft">
                <label> 숫자/문자 최소값 </label> <input type="text" placeholder="최소값" style="width: 75%">
             </div>
@@ -113,28 +120,34 @@ $(document).on("change",".selectInputBox", function(){
 	               pr.append($('<div class="lineLeft"></div>'));
 		           pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
 		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%" value="1">'));
-	               
+	                       
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(2).append($('<label> 반복 횟수 출력 여부 </label>'));
 	               pr.children().eq(2).append($('<select data-type="param" style="width: 75%">'));
 	               pr.children().eq(2).children().eq(1).append($('<option value="no">False</option>'));
 	               pr.children().eq(2).children().eq(1).append($('<option value="yes">True</option>'));
 	               
-	               pr.append($('<div class="lineAll"></div>'));
-	               pr.children().eq(3).append($('<label> 숫자/문자 타입  </label>'));
-	               pr.children().eq(3).append($('<select data-type="param" style="width: 75%" class = "selectDataBox">'));
-	               pr.children().eq(3).children().eq(1).append($('<option value="int">Int</option>'));
-	               pr.children().eq(3).children().eq(1).append($('<option value="double">Double</option>'));
-	               pr.children().eq(3).children().eq(1).append($('<option value="string">String</option>'));
-	               pr.children().eq(3).children().eq(1).append($('<option value="char">Char</option>'));
-	               
 	               pr.append($('<div class="lineLeft"></div>'));
-	               pr.children().eq(4).append($('<label> 숫자/문자 최소값 </label>'));
-	               pr.children().eq(4).append($('<input type="text" placeholder="최소 값" style="width: 75%">'));
+	               pr.children().eq(3).append($('<label> 중복 값 여부 </label>'));
+	               pr.children().eq(3).append($('<select data-type="param" style="width: 75%">'));
+	               pr.children().eq(3).children().eq(1).append($('<option value="no">False</option>'));
+	               pr.children().eq(3).children().eq(1).append($('<option value="yes">True</option>'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
-	               pr.children().eq(5).append($('<label> 숫자/문자 최대값 </label>'));
-	               pr.children().eq(5).append($('<input type="text" placeholder="최대 값" style="width: 75%">'));
+	               pr.children().eq(4).append($('<label> 숫자/문자 타입  </label>'));
+	               pr.children().eq(4).append($('<select data-type="param" style="width: 75%" class = "selectDataBox">'));
+	               pr.children().eq(4).children().eq(1).append($('<option value="int">Int</option>'));
+	               pr.children().eq(4).children().eq(1).append($('<option value="double">Double</option>'));
+	               pr.children().eq(4).children().eq(1).append($('<option value="string">String</option>'));
+	               pr.children().eq(4).children().eq(1).append($('<option value="char">Char</option>'));
+	               
+	               pr.append($('<div class="lineLeft"></div>'));
+	               pr.children().eq(5).append($('<label> 숫자/문자 최소값 </label>'));
+	               pr.children().eq(5).append($('<input type="text" placeholder="최소 값" style="width: 75%">'));
+	               
+	               pr.append($('<div class="lineRight"></div>'));
+	               pr.children().eq(6).append($('<label> 숫자/문자 최대값 </label>'));
+	               pr.children().eq(6).append($('<input type="text" placeholder="최대 값" style="width: 75%">'));
 	               
 	               break;
 	            case "1" : // Array
@@ -301,15 +314,9 @@ $(document).on("change",".selectDataBox", function(){
 	                  break;
 	               
 	               case "char" : // Char
-	                  pr.append($('<div class="lineLeft"></div>'));
+	                  pr.append($('<div class="lineAll"></div>'));
 	                  $(this).parent().next().append($('<label> 출현 가능한 문자 </label>'));
 	                  $(this).parent().next().append($('<input type="text" placeholder="문자" style="width: 75%">'));
-	                  
-	                  pr.append($('<div class="lineRight"></div>'));
-	                  $(this).parent().next().next().append($('<label> 동일 문자 출현 허용 </label>'));
-	                  $(this).parent().next().next().append($('<select data-type="param" style="width: 75%">'));
-	                  $(this).parent().next().next().children().eq(1).append($('<option value="true">True</option>'));
-	                  $(this).parent().next().next().children().eq(1).append($('<option value="false">False</option>'));
 	                  
 	                  break;
 	                  
@@ -546,7 +553,7 @@ function makeGraph(thisObj, len){
 		var OutputTag = $("textarea[name='member_name']");
 		
 		if(dataAttr[3] == 'int'){ // 유향 중 int형인 경우
-			
+
 			var checkDigit = true;
 			for (var j = 0; j < dataAttr[4].length; j++) {
 				if(dataAttr[4].charAt(j) < '0' || dataAttr[4].charAt(j) > '9'){
@@ -560,7 +567,7 @@ function makeGraph(thisObj, len){
 			}
 		} else {
 			var checkChar = true;
-			
+
 			if(dataAttr[4].charAt(j) < 'A' || dataAttr[4].charAt(j) > 'Z' || dataAttr[4].length != 1){
 				checkChar = false;
 			}
@@ -569,7 +576,6 @@ function makeGraph(thisObj, len){
 				return;
 			}
 		}
-		
 		
 		if(dataAttr[6] == 'true'){ // 반복 횟수 출력 여부
 			OutputTag.val(OutputTag.val() + (test_case+1) + "\n");
@@ -593,7 +599,6 @@ function makeGraph(thisObj, len){
 				
 				
 				if(dataAttr[3] == 'int'){ // 유향 중 int형인 경우
-			
 					var startNode = parseInt(dataAttr[4]);
 		
 					var sn = Math.floor(Math.random() * node) + startNode; // 열
@@ -700,6 +705,16 @@ function makeGraph(thisObj, len){
 
 }
 
+function getPermNum(strLen,strNum){
+	var val = 1;
+	var mul = strNum;
+    for (var i = 0; i < strLen; i++) {
+		val = val * mul;
+		mul -= 1;
+	}
+	return val;
+}
+
 function makeNumberString(thisObj, len){
 	var element = thisObj.parent().children();
 	var dataAttr = new Array(); // 데이터 속성을 배열에 저장
@@ -721,41 +736,75 @@ function makeNumberString(thisObj, len){
 		OutputTag.val(OutputTag.val() + dataAttr[0] + "\n");
 	}
 	
-	if(dataAttr[2] == 'int'){ // 숫자/문자타입이 int라면
+	if(dataAttr[3] == 'int'){ // 숫자/문자타입이 int라면
 		var OutputTag = $("textarea[name='member_name']");
-		for (var i = 0; i < dataAttr[0]; i++) {
-			var n = Math.floor(Math.random() * (parseInt(dataAttr[4])+1-parseInt(dataAttr[3]))) + parseInt(dataAttr[3]);
-			OutputTag.val(OutputTag.val() + n + "\n");
-		}
-	}else if(dataAttr[2] == 'double'){
-		var OutputTag = $("textarea[name='member_name']");
-		for (var i = 0; i < dataAttr[0]; i++) {
-			var n = Math.random() * (Number(dataAttr[4])+1-Number(dataAttr[3])) + Number(dataAttr[3]);
-			
-			OutputTag.val(OutputTag.val() + n.toFixed(2) + "\n");
-		}
-	} else if(dataAttr[2] == 'char'){
-		var OutputTag = $("textarea[name='member_name']");
-		if(dataAttr[4] == 'true'){ 
+		if(dataAttr[2] == 'yes'){  // 중복 값 가능
 			for (var i = 0; i < dataAttr[0]; i++) {
-				var n = dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
+				var n = Math.floor(Math.random() * (parseInt(dataAttr[5])+1-parseInt(dataAttr[4]))) + parseInt(dataAttr[4]);
+				OutputTag.val(OutputTag.val() + n + "\n");
+			}
+		}else{ // 중복 값 불가능
+			var numSet = new Set();
+			var cnt = 0;
+			var num = parseInt(dataAttr[5]) - parseInt(dataAttr[4]) + 1;
+			if(num < dataAttr[0]){
+				OutputTag.val("출력이 불가능한 경우입니다.")
+			}else{
+				while(cnt < dataAttr[0]){
+					var n = Math.floor(Math.random() * (parseInt(dataAttr[5])+1-parseInt(dataAttr[4]))) + parseInt(dataAttr[4]);
+					console.log(n);
+					if(!numSet.has(n)){
+						cnt++;
+						numSet.add(n);
+						OutputTag.val(OutputTag.val() + n + "\n");
+					}
+				}					
+			}
+		}
+
+	}else if(dataAttr[3] == 'double'){
+		var OutputTag = $("textarea[name='member_name']");
+		if(dataAttr[2] == 'yes'){  // 중복 값 가능
+			for (var i = 0; i < dataAttr[0]; i++) {
+				var n = Math.random() * (Number(dataAttr[5])+1-Number(dataAttr[4])) + Number(dataAttr[4]);
+				OutputTag.val(OutputTag.val() + n.toFixed(2) + "\n");
+			}
+		}else{ // 중복 값 불가능
+			var numSet = new Set();
+			var cnt = 0;
+	
+			while(cnt < dataAttr[0]){
+				var n = Math.random() * (Number(dataAttr[5])+1-Number(dataAttr[4])) + Number(dataAttr[4]);
+				console.log(n.toFixed(2));
+				if(!numSet.has(n.toFixed(2))){
+					cnt++;
+					numSet.add(n.toFixed(2));
+					OutputTag.val(OutputTag.val() + n.toFixed(2) + "\n");
+				}
+			}		
+		}
+	} else if(dataAttr[3] == 'char'){
+		var OutputTag = $("textarea[name='member_name']");
+		if(dataAttr[2] == 'yes'){  // 중복 값 가능
+			for (var i = 0; i < dataAttr[0]; i++) {
+				var n = dataAttr[4].charAt(Number(Math.random()*dataAttr[4].length));
 				OutputTag.val(OutputTag.val() + n + "\n");
 			}
 		}
-		else{
-			if(dataAttr[3].length < dataAttr[0]){
+		else{ // 중복 값 불가능
+			if(dataAttr[4].length < dataAttr[0]){
 				OutputTag.val("출력이 불가능한 경우입니다.")
 			}
 			else{
 				var temp = new Array();
-				for (var i = 0; i < dataAttr[3].length; i++) {
+				for (var i = 0; i < dataAttr[4].length; i++) {
 					temp[i] = i;
 				}
 				
 				
 				for (var i = 0; i < 10; i++) {
-					var ran = Math.floor(Math.random()*dataAttr[3].length);
-					var ran2 = Math.floor(Math.random()*dataAttr[3].length);
+					var ran = Math.floor(Math.random()*dataAttr[4].length);
+					var ran2 = Math.floor(Math.random()*dataAttr[4].length);
 					
 					console.log(ran + " " + ran2);
 					var n = temp[ran];
@@ -763,77 +812,123 @@ function makeNumberString(thisObj, len){
 					temp[ran2] = n;
 					
 				}
-				for (var i = 0; i < dataAttr[0]; i++) {
-					
-					var n = dataAttr[3].charAt(temp[i]);
+				for (var i = 0; i < dataAttr[0]; i++) {					
+					var n = dataAttr[4].charAt(temp[i]);
 					OutputTag.val(OutputTag.val() + n + "\n");
 				}
 						
 			}
 		}
-	} else if(dataAttr[2] == 'string'){
+	} else if(dataAttr[3] == 'string'){
 		var OutputTag = $("textarea[name='member_name']");
-		var strSet = new Set();
 		
-		var strNum = dataAttr[3].length; // 출현 가능 문자 개수
-		var strLen = dataAttr[4]; // 문자열 길이
-		if(dataAttr[5] == 'true'){ // 동일 char 출현 허용
-			if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다 적으면
-														// 출력불가 조건 추가
-				OutputTag.val("출력이 불가능한 경우입니다.")
-			}
-			
-			var cnt = 0;
-			while(cnt < dataAttr[0]){
-				var n = "";
-				for (var j = 0; j < dataAttr[4]; j++) {
-					n += dataAttr[3].charAt(Number(Math.random()*dataAttr[3].length));
-				}
-				console.log(n);
-				if(!strSet.has(n)){
-					cnt++;
-					strSet.add(n);
+		var strNum = dataAttr[4].length; // 출현 가능 문자 개수
+		var strLen = dataAttr[5]; // 문자열 길이
+		if(dataAttr[2] == 'yes'){ // 중복 값 가능
+			if(dataAttr[6] == 'true'){ // 동일 char 출현 허용
+				for (var i = 0; i < dataAttr[0]; i++) { // 반복 횟수만큼 돌기
+					var n = "";
+					for (var j = 0; j < dataAttr[5]; j++) {
+						n += dataAttr[4].charAt(Number(Math.random()*dataAttr[4].length));
+					}
+					console.log(n);
 					OutputTag.val(OutputTag.val() + n + "\n");
 				}
 			}
-		}
-		else{ // 동일 char 출현 허용 x
-			if(strLen > strNum){ // 만약 abc, 2개면 경우의 수 6개인데 반복횟수가 6보다 크면 출력 불가
-									// 이 경우 조건 추가 요망.
-				OutputTag.val("출력이 불가능한 경우입니다.")
-			}
-			else{
-				var temp = new Array();
-				for (var i = 0; i < dataAttr[3].length; i++) {
-					temp[i] = i;
+			else{ // 동일 char 출현 허용 x
+				if(strLen > strNum){ 
+					OutputTag.val("출력이 불가능한 경우입니다.")
 				}
-				
-				var cnt = 0;
-				while(cnt < dataAttr[0]){
-					for (var j = 0; j < 20; j++) {
-						var ran = Math.floor(Math.random()*dataAttr[3].length);
-						var ran2 = Math.floor(Math.random()*dataAttr[3].length);
-						
-						console.log(ran + " " + ran2);
-						var n = temp[ran];
-						temp[ran] = temp[ran2];
-						temp[ran2] = n;
-						
+				else{
+					var temp = new Array();
+					for (var i = 0; i < dataAttr[4].length; i++) {
+						temp[i] = i;
 					}
 					
-					var str = "";
-					
-					for (var j = 0; j < dataAttr[4]; j++) {
-						str += dataAttr[3].charAt(temp[j]);
-					}
-					console.log(str);
-					if(!strSet.has(str)){
+					var cnt = 0;
+					while(cnt < dataAttr[0]){
+						for (var j = 0; j < 20; j++) {
+							var ran = Math.floor(Math.random()*dataAttr[4].length);
+							var ran2 = Math.floor(Math.random()*dataAttr[4].length);
+							
+							console.log(ran + " " + ran2);
+							var n = temp[ran];
+							temp[ran] = temp[ran2];
+							temp[ran2] = n;
+						}
+						
+						var str = "";
+						for (var j = 0; j < dataAttr[5]; j++) {
+							str += dataAttr[4].charAt(temp[j]);
+						}
 						cnt++;
-						strSet.add(str);
 						OutputTag.val(OutputTag.val() + str + "\n");
 					}
-				}		
+				}
 			}
+		}else{ // 중복 값 불가능
+			var strSet = new Set();
+			if(dataAttr[6] == 'true'){ // 동일 char 출현 허용
+				if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다 적으면
+					// 출력불가 조건 추가
+					OutputTag.val("출력이 불가능한 경우입니다.")
+				}else{
+					var cnt = 0;
+					while(cnt < dataAttr[0]){ // 반복 횟수만큼 돌기
+						var str = "";
+						for (var j = 0; j < dataAttr[5]; j++) {
+							str += dataAttr[4].charAt(Number(Math.random()*dataAttr[4].length));
+						}
+						console.log(str);
+						if(!strSet.has(str)){
+							cnt++;
+							strSet.add(str);
+							OutputTag.val(OutputTag.val() + str + "\n");
+						}
+					}
+				}
+			}
+			else{ // 동일 char 출현 허용 x
+				var hi = getPermNum(strLen,strNum);
+				console.log(hi);
+				if(strLen > strNum || getPermNum(strLen,strNum) < dataAttr[0]){ // 만약 abc, 2개면 경우의 수 6개인데 반복횟수가 6보다 크면 출력 불가
+					OutputTag.val("출력이 불가능한 경우입니다.")
+				}
+				else{
+					var temp = new Array();
+					for (var i = 0; i < dataAttr[4].length; i++) {
+						temp[i] = i;
+					}
+					
+					var cnt = 0;
+					while(cnt < dataAttr[0]){
+						for (var j = 0; j < 20; j++) {
+							var ran = Math.floor(Math.random()*dataAttr[4].length);
+							var ran2 = Math.floor(Math.random()*dataAttr[4].length);
+							
+							console.log(ran + " " + ran2);
+							var n = temp[ran];
+							temp[ran] = temp[ran2];
+							temp[ran2] = n;
+							
+						}
+						
+						var str = "";
+						
+						for (var j = 0; j < dataAttr[5]; j++) {
+							str += dataAttr[4].charAt(temp[j]);
+						}
+						
+						console.log(str);
+						if(!strSet.has(str)){
+							cnt++;
+							strSet.add(str);
+							OutputTag.val(OutputTag.val() + str + "\n");
+						}
+					}		
+				}
+			}
+			
 		}
 	}
 }
