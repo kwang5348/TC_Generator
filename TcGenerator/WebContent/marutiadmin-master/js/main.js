@@ -51,7 +51,7 @@ Line.prototype.create = function(){
                </div>
          <div class="lineLeft">
             <label> 반복 횟수 </label> 
-            <input type="text" placeholder="반복 횟수" style="width: 75%">
+            <input type="text" placeholder="반복 횟수" style="width: 75%" value="1">
          </div>
          <div class="lineRight">
 	         <label> 반복 횟수 출력 여부  </label> 
@@ -112,8 +112,8 @@ $(document).on("change",".selectInputBox", function(){
 	            case "0" : // 숫자/문자
 	               pr.append($('<div class="lineLeft"></div>'));
 		           pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
-		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
-	                       
+		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%" value="1">'));
+	               
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(2).append($('<label> 반복 횟수 출력 여부 </label>'));
 	               pr.children().eq(2).append($('<select data-type="param" style="width: 75%">'));
@@ -140,7 +140,7 @@ $(document).on("change",".selectInputBox", function(){
 	            case "1" : // Array
 		           pr.append($('<div class="lineLeft"></div>'));
 			       pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
-			       pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
+			       pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%" value="1">'));
 			       
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(2).append($('<label> 중복 값 여부 </label>'));
@@ -196,7 +196,7 @@ $(document).on("change",".selectInputBox", function(){
 	            case "2" : // Tree
 		           pr.append($('<div class="lineLeft"></div>'));
 			       pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
-			       pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
+			       pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%" value="1">'));
 	               
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(2).append($('<label> 노드 개수 </label>'));
@@ -235,7 +235,7 @@ $(document).on("change",".selectInputBox", function(){
 	            case "3" : // Graph
 	               pr.append($('<div class="lineLeft"></div>'));
 		           pr.children().eq(1).append($('<label> 반복 횟수 </label>'));
-		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%">'));
+		           pr.children().eq(1).append($('<input type="text" placeholder="반복 횟수" style="width: 75%" value="1">'));
 		               
 	               pr.append($('<div class="lineRight"></div>'));
 	               pr.children().eq(2).append($('<label> 정점 개수 </label>'));
@@ -515,7 +515,7 @@ function makeTree(thisObj, len){
 					}
 				}
 			}
-			OutputTag.val(OutputTag.val() + input + "\n");
+			OutputTag.val(OutputTag.val() + input);
 			
 	}
 
@@ -545,6 +545,32 @@ function makeGraph(thisObj, len){
 		var vertex = parseInt(dataAttr[2]);
 		var OutputTag = $("textarea[name='member_name']");
 		
+		if(dataAttr[3] == 'int'){ // 유향 중 int형인 경우
+			
+			var checkDigit = true;
+			for (var j = 0; j < dataAttr[4].length; j++) {
+				if(dataAttr[4].charAt(j) < '0' || dataAttr[4].charAt(j) > '9'){
+					checkDigit = false;
+					break;
+				}
+			}
+			if(!checkDigit){
+				OutputTag.val(OutputTag.val() + "시작정점은 숫자로 입력되어야 합니다.");
+				return;
+			}
+		} else {
+			var checkChar = true;
+			
+			if(dataAttr[4].charAt(j) < 'A' || dataAttr[4].charAt(j) > 'Z' || dataAttr[4].length != 1){
+				checkChar = false;
+			}
+			if(!checkChar){
+				OutputTag.val(OutputTag.val() + "A ~ Z 중 하나의 문자를 입력해주세요");
+				return;
+			}
+		}
+		
+		
 		if(dataAttr[6] == 'true'){ // 반복 횟수 출력 여부
 			OutputTag.val(OutputTag.val() + (test_case+1) + "\n");
 		}
@@ -564,7 +590,10 @@ function makeGraph(thisObj, len){
 					OutputTag.val(OutputTag.val() + "간선 개수가 " + node*(node-1) + "개 이하여야 합니다.\n");
 					return;
 				}
+				
+				
 				if(dataAttr[3] == 'int'){ // 유향 중 int형인 경우
+			
 					var startNode = parseInt(dataAttr[4]);
 		
 					var sn = Math.floor(Math.random() * node) + startNode; // 열
