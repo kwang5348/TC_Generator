@@ -869,7 +869,8 @@ function makeNumberString(thisObj, len){
 		}else{ // 중복 값 불가능
 			var strSet = new Set();
 			if(dataAttr[6] == 'true'){ // 동일 char 출현 허용
-				if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다 적으면
+				if(Math.pow(strNum,strLen) < dataAttr[0]){ // 문자열 경우의 수가 반복횟수보다
+															// 적으면
 					// 출력불가 조건 추가
 					OutputTag.val("출력이 불가능한 경우입니다.")
 				}else{
@@ -891,7 +892,17 @@ function makeNumberString(thisObj, len){
 			else{ // 동일 char 출현 허용 x
 				var hi = getPermNum(strLen,strNum);
 				console.log(hi);
-				if(strLen > strNum || getPermNum(strLen,strNum) < dataAttr[0]){ // 만약 abc, 2개면 경우의 수 6개인데 반복횟수가 6보다 크면 출력 불가
+				if(strLen > strNum || getPermNum(strLen,strNum) < dataAttr[0]){ // 만약
+																				// abc,
+																				// 2개면
+																				// 경우의
+																				// 수
+																				// 6개인데
+																				// 반복횟수가
+																				// 6보다
+																				// 크면
+																				// 출력
+																				// 불가
 					OutputTag.val("출력이 불가능한 경우입니다.")
 				}
 				else{
@@ -930,7 +941,7 @@ function makeNumberString(thisObj, len){
 			}
 			
 		}
-	}
+	} // end of string
 }
 
 function makeArray(thisObj, len){
@@ -959,6 +970,7 @@ function makeArray(thisObj, len){
 																				// 횟수
 																				// 만큼
 																				// 반복
+		var strSet = new Set();
 		var rowLen = Math.floor(Math.random() * (parseInt(dataAttr[3])+1-parseInt(dataAttr[2]))) + parseInt(dataAttr[2]); // 행
 																								// 최소값,
 																								// 최대값
@@ -1061,38 +1073,147 @@ function makeArray(thisObj, len){
 			
 			
 		} else if(dataAttr[8] == 'string'){
-			if(dataAttr[11] == 'true'){ // 동일 char true경우 추가
-				var strNum = dataAttr[9].length; // 출현 가능 문자 개수
-				var strLen = dataAttr[10]; // 문자열 길이
-				var OutputTag = $("textarea[name='member_name']");
-				if(Math.pow(strNum,strLen) < rowLen*colLen){ // 문자열 경우의 수가
-																// 행*열 개수보다 적으면
-																// 출력불가 조건 추가
-					OutputTag.val("출력이 불가능한 경우입니다.")
-				}else{
-					var strSet = new Set();
-					
-					for (var i = 0; i < rowLen; i++) {
-						var tmpStr = "";
-						var cnt = 0;
-						while(cnt < colLen){
-							var n = "";
-							for (var j = 0; j < dataAttr[10]; j++) {
-								n += dataAttr[9].charAt(Number(Math.random()*dataAttr[9].length));
+			
+			
+			var OutputTag = $("textarea[name='member_name']");
+			
+			var strNum = dataAttr[9].length; // 출현 가능 문자 개수
+			var strLen = dataAttr[10]; // 문자열 길이
+			
+			if(dataAttr[1] == 'yes'){ // 중복 값 가능
+				
+				if(dataAttr[11] == 'true'){ // 동일 char 출현 허용
+						for (var r = 0; r < rowLen; r++) {
+							for (var c = 0; c < colLen; c++) {
+								var n = "";
+								for (var j = 0; j < strLen; j++) {
+									n += dataAttr[9].charAt(Number(Math.random()*strNum));
+								}
+								OutputTag.val(OutputTag.val() + n + " ");
 							}
-							console.log(n);
-							if(!strSet.has(n)){
-								cnt++;
-								strSet.add(n);
-								tmpStr = tmpStr + n + " ";
-							}
+							OutputTag.val(OutputTag.val() + "\n");
 						}
-						OutputTag.val(OutputTag.val() + tmpStr + "\n");	 // 띄어쓰기
+					
+				}
+				else{ // 동일 char 출현 허용 x
+					if(strLen > strNum){ 
+						OutputTag.val("출력이 불가능한 경우입니다.")
 					}
-				}		
-			}else{ 
+					else{
+						var temp = new Array();
+						for (var i = 0; i < strNum; i++) {
+							temp[i] = i;
+						}
+						
+							for (var r = 0; r < rowLen; r++) {
+								for (var c = 0; c < colLen; c++) {
+									
+									for (var j = 0; j < 20; j++) {
+										var ran = Math.floor(Math.random()*strNum);
+										var ran2 = Math.floor(Math.random()*strNum);
+										
+										console.log(ran + " " + ran2);
+										var n = temp[ran];
+										temp[ran] = temp[ran2];
+										temp[ran2] = n;
+									}
+									
+									var n = "";
+									for (var j = 0; j < strLen; j++) {
+										n += dataAttr[9].charAt(temp[j]);
+									}
+									OutputTag.val(OutputTag.val() + n + " ");
+								}
+								OutputTag.val(OutputTag.val() + "\n");
+							}
+
+					}
+				}
+			} else{ // 중복 값 불가능
+				
+				if(dataAttr[11] == 'true'){ // 동일 char 출현 허용
+					
+					if(Math.pow(strNum,strLen) < dataAttr[0]*rowLen*colLen){ // 문자열
+																				// 경우의
+																				// 수가
+																// 반복횟수보다 적으면
+						// 출력불가 조건 추가
+						OutputTag.val("출력이 불가능한 경우입니다.")
+					}else{
+						
+							
+							for (var r = 0; r < rowLen; r++) {
+								for (var c = 0; c < colLen;) {
+									var str = "";
+									for (var j = 0; j < strLen; j++) {
+										str += dataAttr[9].charAt(Number(Math.random()*strNum));
+									}
+									
+									if(!strSet.has(str)){
+										c++;
+										strSet.add(str);
+										OutputTag.val(OutputTag.val() + str + " ");
+									}							
+								}
+								OutputTag.val(OutputTag.val() + "\n");
+							}
+						
+					}
+				}
+				else{ // 동일 char 출현 허용 x
+					var hi = getPermNum(strLen,strNum);
+					if(strLen > strNum || getPermNum(strLen,strNum) < dataAttr[0]*rowLen*colLen){ // 만약
+																					// abc,
+																					// 2개면
+																					// 경우의
+																					// 수
+																					// 6개인데
+																					// 반복횟수가
+																					// 6보다
+																					// 크면
+																					// 출력
+																					// 불가
+						OutputTag.val("출력이 불가능한 경우입니다.")
+					}
+					else{
+						var temp = new Array();
+						for (var i = 0; i < strNum; i++) {
+							temp[i] = i;
+						}
+						
+		
+							for (var r = 0; r < rowLen; r++) {
+								for (var c = 0; c < colLen;) {
+									
+									for (var j = 0; j < 5; j++) {
+										var ran = Math.floor(Math.random()*strNum);
+										var ran2 = Math.floor(Math.random()*strNum);
+										
+										var n = temp[ran];
+										temp[ran] = temp[ran2];
+										temp[ran2] = n;
+										
+									}
+									var str = "";
+									for (var j = 0; j < strLen; j++) {
+										str += dataAttr[9].charAt(temp[j]);
+									}
+						
+									if(!strSet.has(str)){
+										c++;
+										strSet.add(str);
+										OutputTag.val(OutputTag.val() + str + " ");
+									}							
+								}
+								OutputTag.val(OutputTag.val() + "\n");
+							}
+							
+							
+					}
+				}
 				
 			}
+			
 		}
 	}
 }
