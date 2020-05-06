@@ -27,13 +27,32 @@ Line.prototype.create = function(){
    $str += `"
    data-toggle="collapse"> <span class="icon"><i
    class="icon-magnet"></i></span>
-      <h5>라인</h5>
-         </a> 
+      <h5>라인</h5>	   		
+	   		</a>
             <span class="icon2">
+				<a href="#layer2" class="btn-example"><i class="far fa-question-circle"></i></a>
+				<div class="dim-layer">
+				    <div class="dimBg"></div>
+				    <div id="layer2" class="pop-layer">
+				        <div class="pop-container">
+				            <div class="pop-conts">
+				                <!--content //-->
+				                <p class="ctxt mb20">Thank you.<br>
+				                    Your registration was submitted successfully.<br>
+				                    Selected invitees will be notified by e-mail on JANUARY 24th.<br><br>
+				                    Hope to see you soon!
+				                </p>
+				
+				                <div class="btn-r">
+				                    <a href="#" class="btn-layerClose">Close</a>
+				                </div>
+				                <!--// content-->
+				            </div>
+				        </div>
+				    </div>
+				</div>
                <button class="removeLineBtn"><i class="far fa-trash-alt"></i></button>
             </span>
-            
-         </div>
       </div>
       <div class="collapse in accordion-body" id="collapse`
    $str += cnt;
@@ -432,6 +451,7 @@ function makeTree(thisObj, len){
 	for (var test_case = 0; test_case < parseInt(dataAttr[0]); test_case++){
 		var repeat = parseInt(dataAttr[0]);
 		var node = parseInt(dataAttr[1]);
+		var vertex = parseInt(dataAttr[3]);
 		var OutputTag = $("textarea[name='member_name']");
 		(7) ["1", "3", "int", "5", "no", "no", "no"]
 		
@@ -440,7 +460,7 @@ function makeTree(thisObj, len){
 		}
 		
 		if(dataAttr[5] == 'true'){ // 노드 개수 출력 여부
-			OutputTag.val(OutputTag.val() + node + " " + vertex + "\n");
+			OutputTag.val(OutputTag.val() + node + "\n");
 		}
 		
 		
@@ -561,7 +581,7 @@ function makeGraph(thisObj, len){
 					break;
 				}
 			}
-			if(!checkDigit){
+			if(!checkDigit || dataAttr[4].length == 0){
 				OutputTag.val(OutputTag.val() + "시작정점은 숫자로 입력되어야 합니다.");
 				return;
 			}
@@ -1133,7 +1153,7 @@ function makeArray(thisObj, len){
 				
 				if(dataAttr[11] == 'true'){ // 동일 char 출현 허용
 					
-					if(Math.pow(strNum,strLen) < dataAttr[0]*rowLen*colLen){ // 문자열
+					if(Math.pow(strNum,strLen) < rowLen*colLen){ // 문자열
 																				// 경우의
 																				// 수가
 																// 반복횟수보다 적으면
@@ -1162,7 +1182,7 @@ function makeArray(thisObj, len){
 				}
 				else{ // 동일 char 출현 허용 x
 					var hi = getPermNum(strLen,strNum);
-					if(strLen > strNum || getPermNum(strLen,strNum) < dataAttr[0]*rowLen*colLen){ // 만약
+					if(strLen > strNum || getPermNum(strLen,strNum) < rowLen*colLen){ // 만약
 																					// abc,
 																					// 2개면
 																					// 경우의
@@ -1272,3 +1292,42 @@ Map.prototype = {
 	    }
 	};
 
+
+$('.btn-example').click(function(){
+    var $href = $(this).attr('href');
+    console.log($href);
+    layer_popup($href);
+});
+function layer_popup(el){
+
+    var $el = $(el);        //레이어의 id를 $el 변수에 저장
+    var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+    isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+    var $elWidth = ~~($el.outerWidth()),
+        $elHeight = ~~($el.outerHeight()),
+        docWidth = $(document).width(),
+        docHeight = $(document).height();
+
+    // 화면의 중앙에 레이어를 띄운다.
+    if ($elHeight < docHeight || $elWidth < docWidth) {
+        $el.css({
+            marginTop: -$elHeight /2,
+            marginLeft: -$elWidth/2
+        })
+    } else {
+        $el.css({top: 0, left: 0});
+    }
+
+    $el.find('a.btn-layerClose').click(function(){
+        isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+        return false;
+    });
+
+    $('.layer .dimBg').click(function(){
+        $('.dim-layer').fadeOut();
+        return false;
+    });
+
+}
