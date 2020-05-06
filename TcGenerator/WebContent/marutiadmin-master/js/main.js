@@ -30,27 +30,6 @@ Line.prototype.create = function(){
       <h5>라인</h5>	   		
 	   		</a>
             <span class="icon2">
-				<a href="#layer2" class="btn-example"><i class="far fa-question-circle"></i></a>
-				<div class="dim-layer">
-				    <div class="dimBg"></div>
-				    <div id="layer2" class="pop-layer">
-				        <div class="pop-container">
-				            <div class="pop-conts">
-				                <!--content //-->
-				                <p class="ctxt mb20">Thank you.<br>
-				                    Your registration was submitted successfully.<br>
-				                    Selected invitees will be notified by e-mail on JANUARY 24th.<br><br>
-				                    Hope to see you soon!
-				                </p>
-				
-				                <div class="btn-r">
-				                    <a href="#" class="btn-layerClose">Close</a>
-				                </div>
-				                <!--// content-->
-				            </div>
-				        </div>
-				    </div>
-				</div>
                <button class="removeLineBtn"><i class="far fa-trash-alt"></i></button>
             </span>
       </div>
