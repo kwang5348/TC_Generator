@@ -1133,7 +1133,7 @@ function makeArray(thisObj, len){
 				
 				if(dataAttr[11] == 'true'){ // 동일 char 출현 허용
 					
-					if(Math.pow(strNum,strLen) < dataAttr[0]*rowLen*colLen){ // 문자열
+					if(Math.pow(strNum,strLen) < rowLen*colLen){ // 문자열
 																				// 경우의
 																				// 수가
 																// 반복횟수보다 적으면
@@ -1162,7 +1162,7 @@ function makeArray(thisObj, len){
 				}
 				else{ // 동일 char 출현 허용 x
 					var hi = getPermNum(strLen,strNum);
-					if(strLen > strNum || getPermNum(strLen,strNum) < dataAttr[0]*rowLen*colLen){ // 만약
+					if(strLen > strNum || getPermNum(strLen,strNum) < rowLen*colLen){ // 만약
 																					// abc,
 																					// 2개면
 																					// 경우의
