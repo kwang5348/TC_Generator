@@ -30,7 +30,7 @@ Line.prototype.create = function(){
       <h5>라인</h5>	   		
 	   		</a>
             <span class="icon2">
-				<a href="#layer2" class="btn-example"><i class="far fa-question-circle"></i></a>
+				<a href="manual.html" class="btn-example"><i class="far fa-question-circle"></i></a>
 				<div class="dim-layer">
 				    <div class="dimBg"></div>
 				    <div id="layer2" class="pop-layer">
