@@ -30,6 +30,27 @@ Line.prototype.create = function(){
       <h5>라인</h5>	   		
 	   		</a>
             <span class="icon2">
+				<a href="#layer2" class="btn-example"><i class="far fa-question-circle"></i></a>
+				<div class="dim-layer">
+				    <div class="dimBg"></div>
+				    <div id="layer2" class="pop-layer">
+				        <div class="pop-container">
+				            <div class="pop-conts">
+				                <!--content //-->
+				                <p class="ctxt mb20">Thank you.<br>
+				                    Your registration was submitted successfully.<br>
+				                    Selected invitees will be notified by e-mail on JANUARY 24th.<br><br>
+				                    Hope to see you soon!
+				                </p>
+				
+				                <div class="btn-r">
+				                    <a href="#" class="btn-layerClose">Close</a>
+				                </div>
+				                <!--// content-->
+				            </div>
+				        </div>
+				    </div>
+				</div>
                <button class="removeLineBtn"><i class="far fa-trash-alt"></i></button>
             </span>
       </div>
@@ -390,6 +411,13 @@ $(".btn").click(function(){
 
 	var tcNum = $("#tcNum").val();
 	console.log(tcNum);
+	var isPrint = $("#isPrint").val();
+	var OutputTag = $("textarea[name='member_name']");
+	// yes면 출력
+	if(isPrint == 'yes'){
+		OutputTag.val(OutputTag.val() + (tcNum) + "\n");
+	}
+	
 	for (var i = 0; i < tcNum; i++) { // 테스트 케이스 반복
 		$('.selectInputBox').each(function(){
 			var len = $(this).parent().parent().children().length;
